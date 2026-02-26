@@ -4,52 +4,15 @@
 // ============================================
 
 document.addEventListener('DOMContentLoaded', () => {
-    // ---- Theme Toggle ----
-    const themeToggle = document.getElementById('themeToggle');
-    const html = document.documentElement;
-    
-    // Check saved theme
-    const savedTheme = localStorage.getItem('theme') || 'dark';
-    html.setAttribute('data-theme', savedTheme);
-
-    themeToggle.addEventListener('click', () => {
-        const current = html.getAttribute('data-theme');
-        const next = current === 'dark' ? 'light' : 'dark';
-        html.setAttribute('data-theme', next);
-        localStorage.setItem('theme', next);
-    });
-
-    // ---- Mobile Menu ----
-    const hamburger = document.getElementById('hamburger');
-    const mobileMenu = document.getElementById('mobileMenu');
-    const mobileLinks = document.querySelectorAll('.mobile-link');
-
-    hamburger.addEventListener('click', () => {
-        hamburger.classList.toggle('active');
-        mobileMenu.classList.toggle('active');
-    });
-
-    mobileLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            hamburger.classList.remove('active');
-            mobileMenu.classList.remove('active');
-        });
-    });
-
     // ---- Navbar Scroll Effect ----
     const navbar = document.getElementById('navbar');
-    let lastScroll = 0;
 
     window.addEventListener('scroll', () => {
-        const currentScroll = window.pageYOffset;
-        
-        if (currentScroll > 50) {
+        if (window.pageYOffset > 50) {
             navbar.classList.add('scrolled');
         } else {
             navbar.classList.remove('scrolled');
         }
-
-        lastScroll = currentScroll;
     });
 
     // ---- Active Nav Link on Scroll ----
@@ -228,15 +191,9 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             draw() {
-                const theme = html.getAttribute('data-theme');
                 const alpha = this.opacity * (0.5 + 0.5 * Math.sin(this.pulse));
-                
-                if (theme === 'dark') {
-                    ctx.fillStyle = `rgba(0, 212, 255, ${alpha})`;
-                } else {
-                    ctx.fillStyle = `rgba(0, 128, 255, ${alpha})`;
-                }
-                
+                ctx.fillStyle = `rgba(0, 128, 255, ${alpha})`;
+
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
                 ctx.fill();
@@ -248,8 +205,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         function connectParticles() {
-            const theme = html.getAttribute('data-theme');
-            
             for (let i = 0; i < particles.length; i++) {
                 for (let j = i + 1; j < particles.length; j++) {
                     const dx = particles[i].x - particles[j].x;
@@ -258,13 +213,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     if (distance < 120) {
                         const alpha = (1 - distance / 120) * 0.15;
-                        
-                        if (theme === 'dark') {
-                            ctx.strokeStyle = `rgba(0, 212, 255, ${alpha})`;
-                        } else {
-                            ctx.strokeStyle = `rgba(0, 128, 255, ${alpha})`;
-                        }
-                        
+                        ctx.strokeStyle = `rgba(0, 128, 255, ${alpha})`;
+
                         ctx.lineWidth = 0.5;
                         ctx.beginPath();
                         ctx.moveTo(particles[i].x, particles[i].y);
