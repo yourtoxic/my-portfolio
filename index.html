@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tajriyan_rahman's portfolio</title>
+     <link rel="icon" type="image/png" href="bug.png">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body data-bg="minimal">
+
+    <!-- SVG Filters for Liquid Glass -->
+    <svg style="position:absolute;width:0;height:0;">
+        <defs>
+            <filter id="glass-distortion" x="-10%" y="-10%" width="120%" height="120%">
+                <feTurbulence type="fractalNoise" baseFrequency="0.015 0.015" numOctaves="3" seed="2" result="noise"/>
+                <feDisplacementMap in="SourceGraphic" in2="noise" scale="12" xChannelSelector="R" yChannelSelector="G" result="displaced"/>
+                <feGaussianBlur in="displaced" stdDeviation="0.8" result="blurred"/>
+                <feComposite in="blurred" in2="SourceGraphic" operator="in"/>
+            </filter>
+            <filter id="glass-distortion-strong" x="-10%" y="-10%" width="120%" height="120%">
+                <feTurbulence type="fractalNoise" baseFrequency="0.012 0.012" numOctaves="4" seed="5" result="noise"/>
+                <feDisplacementMap in="SourceGraphic" in2="noise" scale="18" xChannelSelector="R" yChannelSelector="G" result="displaced"/>
+                <feGaussianBlur in="displaced" stdDeviation="1" result="blurred"/>
+                <feComposite in="blurred" in2="SourceGraphic" operator="in"/>
+            </filter>
+            <filter id="glass-distortion-subtle" x="-10%" y="-10%" width="120%" height="120%">
+                <feTurbulence type="fractalNoise" baseFrequency="0.02 0.02" numOctaves="2" seed="8" result="noise"/>
+                <feDisplacementMap in="SourceGraphic" in2="noise" scale="6" xChannelSelector="R" yChannelSelector="G" result="displaced"/>
+                <feGaussianBlur in="displaced" stdDeviation="0.5" result="blurred"/>
+                <feComposite in="blurred" in2="SourceGraphic" operator="in"/>
+            </filter>
+            <!-- Gooey filter for liquid blobs -->
+            <filter id="gooey-filter">
+                <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur"/>
+                <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 20 -10" result="gooey"/>
+                <feComposite in="SourceGraphic" in2="gooey" operator="atop"/>
+            </filter>
+        </defs>
+    </svg>
+
+    <!-- ============ DYNAMIC BACKGROUND LAYERS ============ -->
+
+    <!-- Layer 1: Animated Mesh Gradient -->
+    <div class="bg-mesh-gradient"></div>
+
+    <!-- Layer 2: Moving Particles Canvas -->
+    <canvas id="particleCanvas" class="bg-particles"></canvas>
+
+    <!-- Layer 3: Floating Orbs (Liquid Blobs) -->
+    <div class="bg-orbs">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+        <div class="orb orb-4"></div>
+        <div class="orb orb-5"></div>
+        <div class="orb orb-6"></div>
+        <div class="orb orb-7"></div>
+        <div class="orb orb-8"></div>
+        <div class="orb orb-9"></div>
+        <div class="orb orb-10"></div>
+    </div>
+
+    <!-- Layer 4: Aurora / Northern Lights -->
+    <div class="bg-aurora">
+        <div class="aurora-band aurora-1"></div>
+        <div class="aurora-band aurora-2"></div>
+        <div class="aurora-band aurora-3"></div>
+        <div class="aurora-band aurora-4"></div>
+    </div>
+
+    <!-- Layer 5: Noise Texture Overlay -->
+    <div class="bg-noise"></div>
+
+    <!-- Layer 6: Color Overlay for readability -->
+    <div class="bg-overlay" id="bgOverlay"></div>
+
+    <!-- Cursor Glow -->
+    <div class="cursor-glow" id="cursorGlow"></div>
+    <div class="cursor-ripple" id="cursorRipple"></div>
+
+    <!-- Background Switcher (Optional - floating control) -->
+    <div class="bg-switcher liquidGlass-wrapper" id="bgSwitcher">
+        <div class="liquidGlass-effect"></div>
+        <div class="liquidGlass-tint"></div>
+        <div class="liquidGlass-shine"></div>
+        <div class="liquidGlass-text bg-switcher-inner">
+            <span class="bg-switch-label"><i class="fas fa-palette"></i></span>
+            <div class="bg-switch-options">
+                <button class="bg-option active" data-bg="forest" title="Forest"><i class="fas fa-leaf"></i></button>
+                <button class="bg-option" data-bg="minimal" title="Minimal"><i class="fas fa-feather"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scroll to Top Button -->
+    <div class="scroll-to-top liquidGlass-wrapper" id="scrollToTop">
+        <div class="liquidGlass-effect"></div>
+        <div class="liquidGlass-tint"></div>
+        <div class="liquidGlass-shine"></div>
+        <span class="liquidGlass-text"><i class="fas fa-chevron-up"></i></span>
+    </div>
+
+    <!-- ============ NAVIGATION ============ -->
+    <nav class="liquidGlass-wrapper glass-nav" id="navbar">
+        <div class="liquidGlass-effect"></div>
+        <div class="liquidGlass-tint"></div>
+        <div class="liquidGlass-shine"></div>
+        <div class="nav-container liquidGlass-text">
+            <a href="#" class="nav-logo">
+                <span class="logo-bracket"></span>
+                <span class="logo-text">tajriyan_rahman</span>
+                <span class="logo-bracket"></span>
+            </a>
+            <div class="nav-links" id="navLinks">
+                <a href="#home" class="nav-link active" data-section="home">Home</a>
+                <a href="#about" class="nav-link" data-section="about">About</a>
+                <a href="#skills" class="nav-link" data-section="skills">Skills</a>
+                <a href="#projects" class="nav-link" data-section="projects">Projects</a>
+                <a href="#achievements" class="nav-link" data-section="achievements">Achievements</a>
+                <a href="#contact" class="nav-link" data-section="contact">Contact</a>
+            </div>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-content liquidGlass-wrapper">
+            <div class="liquidGlass-effect"></div>
+            <div class="liquidGlass-tint"></div>
+            <div class="liquidGlass-shine"></div>
+            <div class="mobile-menu-inner liquidGlass-text">
+                <a href="#home" class="mobile-link">Home</a>
+                <a href="#about" class="mobile-link">About</a>
+                <a href="#skills" class="mobile-link">Skills</a>
+                <a href="#projects" class="mobile-link">Projects</a>
+                <a href="#achievements" class="mobile-link">Achievements</a>
+                <a href="#contact" class="mobile-link">Contact</a>
+            </div>
+        </div>
+    </div>
+
+    <main>
+
+        <!-- ==================== HERO ==================== -->
+        <section class="section hero-section" id="home">
+            <div class="hero-content">
+                <div class="liquidGlass-wrapper hero-badge-glass">
+                    <div class="liquidGlass-effect"></div>
+                    <div class="liquidGlass-tint"></div>
+                    <div class="liquidGlass-shine"></div>
+                    <div class="liquidGlass-text hero-badge-inner">
+                        <span class="pulse-dot"></span>
+                        <span>Available for Opportunities</span>
+                    </div>
+                </div>
+
+                <h1 class="hero-title">
+                    <span class="hero-line">Hi, I'm</span>
+                    <span class="hero-name" id="heroName">tajriyan_rahman</span>
+                </h1>
+
+                <div class="hero-roles">
+                    <span class="role-text" id="roleText"></span>
+                </div>
+
+                <p class="hero-desc">
+                    "Engineering student by day, breaking & securing systems by night.
+                    I find vulnerabilities before the bad guys do."
+                </p>
+
+                <div class="hero-actions">
+                    <a href="#contact" class="liquidGlass-wrapper btn-liquid-primary">
+                        <div class="liquidGlass-effect"></div>
+                        <div class="liquidGlass-tint"></div>
+                        <div class="liquidGlass-shine"></div>
+                        <span class="liquidGlass-text btn-content">
+                            <span>Get In Touch</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </span>
+                    </a>
+                    <a href="#projects" class="liquidGlass-wrapper btn-liquid-secondary">
+                        <div class="liquidGlass-effect"></div>
+                        <div class="liquidGlass-tint"></div>
+                        <div class="liquidGlass-shine"></div>
+                        <span class="liquidGlass-text btn-content">
+                            <span>View Work</span>
+                            <i class="fas fa-eye"></i>
+                        </span>
+                    </a>
+                </div>
+
+                <div class="hero-stats">
+                    <div class="liquidGlass-wrapper stat-glass">
+                        <div class="liquidGlass-effect"></div>
+                        <div class="liquidGlass-tint"></div>
+                        <div class="liquidGlass-shine"></div>
+                        <div class="liquidGlass-text stat-inner">
+                            <span class="stat-number" data-count="50">0</span>
+                            <span class="stat-plus">+</span>
+                            <span class="stat-label">Bugs Found</span>
+                        </div>
+                    </div>
+                    <div class="liquidGlass-wrapper stat-glass">
+                        <div class="liquidGlass-effect"></div>
+                        <div class="liquidGlass-tint"></div>
+                        <div class="liquidGlass-shine"></div>
+                        <div class="liquidGlass-text stat-inner">
+                            <span class="stat-number" data-count="30">0</span>
+                            <span class="stat-plus">+</span>
+                            <span class="stat-label">CTFs Played</span>
+                        </div>
+                    </div>
+                    <div class="liquidGlass-wrapper stat-glass">
+                        <div class="liquidGlass-effect"></div>
+                        <div class="liquidGlass-tint"></div>
+                        <div class="liquidGlass-shine"></div>
+                        <div class="liquidGlass-text stat-inner">
+                            <span class="stat-number" data-count="15">0</span>
+                            <span class="stat-plus">+</span>
+                            <span class="stat-label">Projects</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-visual">
+                <div class="avatar-container">
+                    <div class="avatar-ring"></div>
+                    <div class="avatar-ring ring-2"></div>
+                    <div class="avatar-ring ring-3"></div>
+                    <div class="orbit-ring orbit-1">
+                        <span class="orbit-dot"></span>
+                    </div>
+                    <div class="orbit-ring orbit-2">
+                        <span class="orbit-dot"></span>
+                    </div>
+                    <div class="orbit-ring orbit-3">
+                        <span class="orbit-dot"></span>
+                    </div>
+                    <div class="liquidGlass-wrapper avatar-glass-wrapper">
+                        <div class="liquidGlass-effect"></div>
+                        <div class="liquidGlass-tint"></div>
+                        <div class="liquidGlass-shine"></div>
+                        <div class="liquidGlass-text avatar-inner">
+                            <img src="logo.jpg" alt="tajriyan_rahman">
+                        </div>
+                        <div class="border-travel-ring travel-black"></div>
+                        <div class="border-travel-ring travel-white"></div>
+                    </div>
+                    <div class="liquidGlass-wrapper floating-icon fi-1">
+                        <div class="liquidGlass-effect"></div>
+                        <div class="liquidGlass-tint"></div>
+                        <div class="liquidGlass-shine"></div>
+                        <span class="liquidGlass-text"><i class="fas fa-bug"></i></span>
+                    </div>
+                    <div class="liquidGlass-wrapper floating-icon fi-2">
+                        <div class="liquidGlass-effect"></div>
+                        <div class="liquidGlass-tint"></div>
+                        <div class="liquidGlass-shine"></div>
+                        <span class="liquidGlass-text"><i class="fas fa-flag"></i></span>
+                    </div>
+                    <div class="liquidGlass-wrapper floating-icon fi-3">
+                        <div class="liquidGlass-effect"></div>
+                        <div class="liquidGlass-tint"></div>
+                        <div class="liquidGlass-shine"></div>
+                        <span class="liquidGlass-text"><i class="fas fa-bolt"></i></span>
+                    </div>
+                    <div class="liquidGlass-wrapper floating-icon fi-4">
+                        <div class="liquidGlass-effect"></div>
+                        <div class="liquidGlass-tint"></div>
+                        <div class="liquidGlass-shine"></div>
+                        <span class="liquidGlass-text"><i class="fas fa-code"></i></span>
+                    </div>
+                    <div class="liquidGlass-wrapper floating-icon fi-5">
+                        <div class="liquidGlass-effect"></div>
+                        <div class="liquidGlass-tint"></div>
+                        <div class="liquidGlass-shine"></div>
+                        <span class="liquidGlass-text"><i class="fas fa-shield-halved"></i></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="scroll-indicator">
+                <div class="scroll-line"></div>
+                <span>Scroll</span>
+            </div>
+        </section>
+
+        <!-- ==================== ABOUT ==================== -->
+        <section class="section" id="about">
+            <div class="section-container">
+                <div class="section-header">
+                    <div class="liquidGlass-wrapper section-tag-glass">
+                        <div class="liquidGlass-effect"></div>
+                        <div class="liquidGlass-tint"></div>
+                        <div class="liquidGlass-shine"></div>
+                        <span class="liquidGlass-text section-tag-text">About Me</span>
+                    </div>
+                    <h2 class="section-title">Who Am I?</h2>
+                </div>
+                <div class="about-grid">
+                    <div class="liquidGlass-wrapper about-text-glass">
+                        <div class="liquidGlass-effect"></div>
+                        <div class="liquidGlass-tint"></div>
+                        <div class="liquidGlass-shine"></div>
+                        <div class="liquidGlass-text about-text-inner">
+                            <h3>The Short Version</h3>
+                            <p>I'm a passionate Electrical & Electronic Engineering student with a deep love for cybersecurity. When I'm not studying circuits and signals, I'm hunting bugs on major platforms, competing in CTF competitions, and building tools that make the digital world safer.</p>
+                            <p>My journey started with curiosity about how things work — and more importantly, how they break. That curiosity led me into the world of ethical hacking, where every day is a new puzzle waiting to be solved.</p>
+                            <div class="about-tags">
+                                <span class="liquidGlass-wrapper tag-glass"><div class="liquidGlass-effect"></div><div class="liquidGlass-tint"></div><div class="liquidGlass-shine"></div><span class="liquidGlass-text tag-text">Curious</span></span>
+                                <span class="liquidGlass-wrapper tag-glass"><div class="liquidGlass-effect"></div><div class="liquidGlass-tint"></div><div class="liquidGlass-shine"></div><span class="liquidGlass-text tag-text">Persistent</span></span>
+                                <span class="liquidGlass-wrapper tag-glass"><div class="liquidGlass-effect"></div><div class="liquidGlass-tint"></div><div class="liquidGlass-shine"></div><span class="liquidGlass-text tag-text">Detail-Oriented</span></span>
+                                <span class="liquidGlass-wrapper tag-glass"><div class="liquidGlass-effect"></div><div class="liquidGlass-tint"></div><div class="liquidGlass-shine"></div><span class="liquidGlass-text tag-text">Problem Solver</span></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="about-cards">
+                        <div class="liquidGlass-wrapper info-card-glass"><div class="liquidGlass-effect"></div><div class="liquidGlass-tint"></div><div class="liquidGlass-shine"></div><div class="liquidGlass-text info-card-inner"><div class="info-icon"><i class="fas fa-graduation-cap"></i></div><div class="info-content"><h4>Education</h4><p>B.Sc. in EEE</p><span class="info-sub">Sylhet Engineering College</span></div></div></div>
+                        <div class="liquidGlass-wrapper info-card-glass"><div class="liquidGlass-effect"></div><div class="liquidGlass-tint"></div><div class="liquidGlass-shine"></div><div class="liquidGlass-text info-card-inner"><div class="info-icon"><i class="fas fa-crosshairs"></i></div><div class="info-content"><h4>Focus</h4><p>Offensive Security</p><span class="info-sub">Web, API, Mobile</span></div></div></div>
+                        <div class="liquidGlass-wrapper info-card-glass"><div class="liquidGlass-effect"></div><div class="liquidGlass-tint"></div><div class="liquidGlass-shine"></div><div class="liquidGlass-text info-card-inner"><div class="info-icon"><i class="fas fa-terminal"></i></div><div class="info-content"><h4>Coding</h4><p>Python, JS, C</p><span class="info-sub">Tools & Automation</span></div></div></div>
+                        <div class="liquidGlass-wrapper info-card-glass"><div class="liquidGlass-effect"></div><div class="liquidGlass-tint"></div><div class="liquidGlass-shine"></div><div class="liquidGlass-text info-card-inner"><div class="info-icon"><i class="fas fa-map-marker-alt"></i></div><div class="info-content"><h4>Location</h4><p>Sylhet</p><span class="info-sub">Bangladesh</span></div></div></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== SKILLS ==================== -->
+        <section class="section" id="skills">
+            <div class="section-container">
+                <div class="section-header">
+                    <div class="liquidGlass-wrapper section-tag-glass"><div class="liquidGlass-effect"></div><div class="liquidGlass-tint"></div><div class="liquidGlass-shine"></div><span class="liquidGlass-text section-tag-text">Expertise</span></div>
+                    <h2 class="section-title">Skills & Arsenal</h2>
+                </div>
+                <div class="skills-grid">
+                    <div class="liquidGlass-wrapper skill-card-glass"><div class="liquidGlass-effect"></div><div class="liquidGlass-tint"></div><div class="liquidGlass-shine"></div><div class="liquidGlass-text skill-card-inner"><div class="skill-cat-header"><div class="skill-cat-icon"><i class="fas fa-shield-halved"></i></div><h3>Cybersecurity</h3></div><div class="skill-items"><div class="skill-item"><span class="skill-name">Web App Pentesting</span><div class="skill-bar"><div class="skill-fill" data-width="90"></div></div></div><div class="skill-item"><span class="skill-name">Bug Bounty Hunting</span><div class="skill-bar"><div class="skill-fill" data-width="85"></div></div></div><div class="skill-item"><span class="skill-name">CTF (Web/Crypto/Forensics)</span><div class="skill-bar"><div class="skill-fill" data-width="80"></div></div></div><div class="skill-item"><span class="skill-name">Network Security</span><div class="skill-bar"><div class="skill-fill" data-width="75"></div></div></div><div class="skill-item"><span class="skill-name">OSINT</span><div class="skill-bar"><div class="skill-fill" data-width="70"></div></div></div></div></div></div>
+                    <div class="liquidGlass-wrapper skill-card-glass"><div class="liquidGlass-effect"></div><div class="liquidGlass-tint"></div><div class="liquidGlass-shine"></div><div class="liquidGlass-text skill-card-inner"><div class="skill-cat-header"><div class="skill-cat-icon"><i class="fas fa-code"></i></div><h3>Programming</h3></div><div class="skill-items"><div class="skill-item"><span class="skill-name">Python</span><div class="skill-bar"><div class="skill-fill" data-width="88"></div></div></div><div class="skill-item"><span class="skill-name">JavaScript</span><div class="skill-bar"><div class="skill-fill" data-width="78"></div></div></div><div class="skill-item"><span class="skill-name">C / C++</span><div class="skill-bar"><div class="skill-fill" data-width="72"></div></div></div><div class="skill-item"><span class="skill-name">Bash Scripting</span><div class="skill-bar"><div class="skill-fill" data-width="80"></div></div></div><div class="skill-item"><span class="skill-name">HTML / CSS</span><div class="skill-bar"><div class="skill-fill" data-width="85"></div></div></div></div></div></div>
+                    <div class="liquidGlass-wrapper skill-card-glass"><div class="liquidGlass-effect"></div><div class="liquidGlass-tint"></div><div class="liquidGlass-shine"></div><div class="liquidGlass-text skill-card-inner"><div class="skill-cat-header"><div class="skill-cat-icon"><i class="fas fa-wrench"></i></div><h3>Tools & Platforms</h3></div><div class="tool-grid"><div class="liquidGlass-wrapper tool-item-glass"><div class="liquidGlass-effect"></div><div class="liquidGlass-tint"></div><div class="liquidGlass-shine"></div><span class="liquidGlass-text tool-text"><i class="fas fa-spider"></i> Burp Suite</span></div><div class="liquidGlass-wrapper tool-item-glass"><div class="liquidGlass-effect"></div><div class="liquidGlass-tint"></div><div class="liquidGlass-shine"></div><span class="liquidGlass-text tool-text"><i class="fas fa-wifi"></i> Wireshark</span></div><div class="liquidGlass-wrapper tool-item-glass"><div class="liquidGlass-effect"></div><div class="liquidGlass-tint"></div><div class="liquidGlass-shine"></div><span class="liquidGlass-text tool-text"><i class="fas fa-map"></i> Nmap</span></div><div class="liquidGlass-wrapper tool-item-glass"><div class="liquidGlass-effect"></div><div class="liquidGlass-tint"></div><div class="liquidGlass-shine"></div><span class="liquidGlass-text tool-text"><i class="fas fa-database"></i> SQLMap</span></div><div class="liquidGlass-wrapper tool-item-glass"><div class="liquidGlass-effect"></div><div class="liquidGlass-tint"></div><div class="liquidGlass-shine"></div><span class="liquidGlass-text tool-text"><i class="fab fa-linux"></i> Kali Linux</span></div><div class="liquidGlass-wrapper tool-item-glass"><div class="liquidGlass-effect"></div><div class="liquidGlass-tint"></div><div class="liquidGlass-shine"></div><span class="liquidGlass-text tool-text"><i class="fab fa-github"></i> GitHub</span></div><div class="liquidGlass-wrapper tool-item-glass"><div class="liquidGlass-effect"></div><div class="liquidGlass-tint"></div><div class="liquidGlass-shine"></div><span class="liquidGlass-text tool-text"><i class="fas fa-terminal"></i> Metasploit</span></div><div class="liquidGlass-wrapper tool-item-glass"><div class="liquidGlass-effect"></div><div class="liquidGlass-tint"></div><div class="liquidGlass-shine"></div><span class="liquidGlass-text tool-text"><i class="fas fa-lock"></i> Hashcat</span></div></div></div></div>
+                    <div class="liquidGlass-wrapper skill-card-glass"><div class="liquidGlass-effect"></div><div class="liquidGlass-tint"></div><div class="liquidGlass-shine"></div><div class="liquidGlass-text skill-card-inner"><div class="skill-cat-header"><div class="skill-cat-icon"><i class="fas fa-bolt"></i></div><h3>EEE Skills</h3></div><div class="skill-items"><div class="skill-item"><span class="skill-name">Circuit Design</span><div class="skill-bar"><div class="skill-fill" data-width="75"></div></div></div><div class="skill-item"><span class="skill-name">MATLAB / Simulink</span><div class="skill-bar"><div class="skill-fill" data-width="70"></div></div></div><div class="skill-item"><span class="skill-name">Arduino / IoT</span><div class="skill-bar"><div class="skill-fill" data-width="78"></div></div></div><div class="skill-item"><span class="skill-name">Signal Processing</span><div class="skill-bar"><div class="skill-fill" data-width="65"></div></div></div></div></div></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== PROJECTS ==================== -->
+        <section class="section" id="projects">
+            <div class="section-container">
+                <div class="section-header">
+                    <div class="liquidGlass-wrapper section-tag-glass"><div class="liquidGlass-effect"></div><div class="liquidGlass-tint"></div><div class="liquidGlass-shine"></div><span class="liquidGlass-text section-tag-text">Portfolio</span></div>
+                    <h2 class="section-title">Featured Projects</h2>
+                </div>
+                <div class="project-filters">
+                    <button class="liquidGlass-wrapper filter-btn-glass active" data-filter="all"><div class="liquidGlass-effect"></div><div class="liquidGlass-tint"></div><div class="liquidGlass-shine"></div><span class="liquidGlass-text filter-text">All</span></button>
+                    <button class="liquidGlass-wrapper filter-btn-glass" data-filter="security"><div class="liquidGlass-effect"></div><div class="liquidGlass-tint"></div><div class="liquidGlass-shine"></div><span class="liquidGlass-text filter-text">Security</span></button>
+                    <button class="liquidGlass-wrapper filter-btn-glass" data-filter="coding"><div class="liquidGlass-effect"></div><div class="liquidGlass-tint"></div><div class="liquidGlass-shine"></div><span class="liquidGlass-text filter-text">Coding</span></button>
+                    <button class="liquidGlass-wrapper filter-btn-glass" data-filter="eee"><div class="liquidGlass-effect"></div><div class="liquidGlass-tint"></div><div class="liquidGlass-shine"></div><span class="liquidGlass-text filter-text">EEE</span></button>
+                </div>
+                <div class="projects-grid">
+                    <div class="liquidGlass-wrapper project-card-glass" data-category="security"><div class="liquidGlass-effect"></div><div class="liquidGlass-tint"></div><div class="liquidGlass-shine"></div><div class="liquidGlass-text project-card-inner"><div class="project-header"><div class="project-icon"><i class="fas fa-spider"></i></div><div class="project-links"><a href="https://github.com/yourtoxic" class="project-link"><i class="fab fa-github"></i></a><a href="#" class="project-link"><i class="fas fa-external-link-alt"></i></a></div></div><h3>Recon Automation Tool</h3><p>Automated reconnaissance framework for bug bounty hunting. Subdomain enumeration, port scanning, and vulnerability detection.</p><div class="project-tags"><span class="mini-tag">Python</span><span class="mini-tag">Bash</span><span class="mini-tag">Security</span></div></div></div>
+                    <div class="liquidGlass-wrapper project-card-glass" data-category="security"><div class="liquidGlass-effect"></div><div class="liquidGlass-tint"></div><div class="liquidGlass-shine"></div><div class="liquidGlass-text project-card-inner"><div class="project-header"><div class="project-icon"><i class="fas fa-skull-crossbones"></i></div><div class="project-links"><a href="https://github.com/yourtoxic" class="project-link"><i class="fab fa-github"></i></a></div></div><h3>XSS Hunter Custom</h3><p>Custom XSS payload delivery and callback system for identifying blind cross-site scripting vulnerabilities.</p><div class="project-tags"><span class="mini-tag">JavaScript</span><span class="mini-tag">Node.js</span><span class="mini-tag">XSS</span></div></div></div>
+                    <div class="liquidGlass-wrapper project-card-glass" data-category="coding"><div class="liquidGlass-effect"></div><div class="liquidGlass-tint"></div><div class="liquidGlass-shine"></div><div class="liquidGlass-text project-card-inner"><div class="project-header"><div class="project-icon"><i class="fas fa-robot"></i></div><div class="project-links"><a href="https://github.com/yourtoxic" class="project-link"><i class="fab fa-github"></i></a><a href="#" class="project-link"><i class="fas fa-external-link-alt"></i></a></div></div><h3>Discord Security Bot</h3><p>A Discord bot for CTF teams — manages challenges, tracks solves, and provides crypto/encoding utilities.</p><div class="project-tags"><span class="mini-tag">Python</span><span class="mini-tag">Discord.py</span><span class="mini-tag">API</span></div></div></div>
+                    <div class="liquidGlass-wrapper project-card-glass" data-category="eee"><div class="liquidGlass-effect"></div><div class="liquidGlass-tint"></div><div class="liquidGlass-shine"></div><div class="liquidGlass-text project-card-inner"><div class="project-header"><div class="project-icon"><i class="fas fa-microchip"></i></div><div class="project-links"><a href="https://github.com/yourtoxic" class="project-link"><i class="fab fa-github"></i></a></div></div><h3>IoT Home Security</h3><p>Arduino-based home security system with motion detection, camera integration, and mobile alerts.</p><div class="project-tags"><span class="mini-tag">Arduino</span><span class="mini-tag">IoT</span><span class="mini-tag">C++</span></div></div></div>
+                    <div class="liquidGlass-wrapper project-card-glass" data-category="coding"><div class="liquidGlass-effect"></div><div class="liquidGlass-tint"></div><div class="liquidGlass-shine"></div><div class="liquidGlass-text project-card-inner"><div class="project-header"><div class="project-icon"><i class="fas fa-lock"></i></div><div class="project-links"><a href="https://github.com/yourtoxic" class="project-link"><i class="fab fa-github"></i></a></div></div><h3>Password Strength Analyzer</h3><p>Real-time password strength analysis tool using entropy calculation, dictionary checks, and pattern detection.</p><div class="project-tags"><span class="mini-tag">Python</span><span class="mini-tag">Flask</span><span class="mini-tag">Security</span></div></div></div>
+                    <div class="liquidGlass-wrapper project-card-glass" data-category="eee"><div class="liquidGlass-effect"></div><div class="liquidGlass-tint"></div><div class="liquidGlass-shine"></div><div class="liquidGlass-text project-card-inner"><div class="project-header"><div class="project-icon"><i class="fas fa-wave-square"></i></div><div class="project-links"><a href="https://github.com/yourtoxic" class="project-link"><i class="fab fa-github"></i></a></div></div><h3>Signal Processing Toolkit</h3><p>MATLAB-based toolkit for EEE signal processing — FFT analysis, filter design, and real-time visualization.</p><div class="project-tags"><span class="mini-tag">MATLAB</span><span class="mini-tag">DSP</span><span class="mini-tag">EEE</span></div></div></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== ACHIEVEMENTS ==================== -->
+        <section class="section" id="achievements">
+            <div class="section-container">
+                <div class="section-header">
+                    <div class="liquidGlass-wrapper section-tag-glass"><div class="liquidGlass-effect"></div><div class="liquidGlass-tint"></div><div class="liquidGlass-shine"></div><span class="liquidGlass-text section-tag-text">Hall of Fame</span></div>
+                    <h2 class="section-title">Achievements</h2>
+                </div>
+                <div class="achievements-grid">
+                    <div class="liquidGlass-wrapper achievement-card-glass"><div class="liquidGlass-effect"></div><div class="liquidGlass-tint"></div><div class="liquidGlass-shine"></div><div class="liquidGlass-text achievement-inner"><div class="achievement-icon"><i class="fas fa-trophy"></i></div><h3>Bug Bounty Recognitions</h3><p>Acknowledged by multiple companies for finding critical vulnerabilities.</p><div class="achievement-companies"><span class="mini-tag">Company 1</span><span class="mini-tag">Company 2</span><span class="mini-tag">Company 3</span></div></div></div>
+                    <div class="liquidGlass-wrapper achievement-card-glass"><div class="liquidGlass-effect"></div><div class="liquidGlass-tint"></div><div class="liquidGlass-shine"></div><div class="liquidGlass-text achievement-inner"><div class="achievement-icon"><i class="fas fa-flag-checkered"></i></div><h3>CTF Rankings</h3><p>Competed in national and international CTF competitions.</p><ul class="achievement-list"><li><span class="achievement-rank">#1</span> Some CTF 2024</li><li><span class="achievement-rank">Top 10</span> Another CTF 2024</li><li><span class="achievement-rank">Top 5%</span> Major CTF 2023</li></ul></div></div>
+                    <div class="liquidGlass-wrapper achievement-card-glass"><div class="liquidGlass-effect"></div><div class="liquidGlass-tint"></div><div class="liquidGlass-shine"></div><div class="liquidGlass-text achievement-inner"><div class="achievement-icon"><i class="fas fa-certificate"></i></div><h3>Certifications</h3><p>Professional certifications in cybersecurity.</p><ul class="achievement-list"><li>Your Certification 1</li><li>Your Certification 2</li><li>Your Certification 3</li></ul></div></div>
+                    <div class="liquidGlass-wrapper achievement-card-glass"><div class="liquidGlass-effect"></div><div class="liquidGlass-tint"></div><div class="liquidGlass-shine"></div><div class="liquidGlass-text achievement-inner"><div class="achievement-icon"><i class="fas fa-ranking-star"></i></div><h3>Platform Profiles</h3><p>Active profiles on cybersecurity platforms.</p><div class="platform-links"><a href="#" class="platform-link"><i class="fas fa-cube"></i><span>HackTheBox</span></a><a href="#" class="platform-link"><i class="fas fa-door-open"></i><span>TryHackMe</span></a><a href="#" class="platform-link"><i class="fas fa-bug"></i><span>HackerOne</span></a></div></div></div>
+                </div>
+
+                <div class="timeline-section">
+                    <h3 class="timeline-title">My Journey</h3>
+                    <div class="timeline">
+                        <div class="liquidGlass-wrapper timeline-item-glass"><div class="liquidGlass-effect"></div><div class="liquidGlass-tint"></div><div class="liquidGlass-shine"></div><div class="liquidGlass-text timeline-inner"><div class="timeline-dot"></div><span class="timeline-date">2026</span><h4>Started Bug Bounty</h4><p>Found first critical vulnerability, got hooked on security research.</p></div></div>
+                        <div class="liquidGlass-wrapper timeline-item-glass"><div class="liquidGlass-effect"></div><div class="liquidGlass-tint"></div><div class="liquidGlass-shine"></div><div class="liquidGlass-text timeline-inner"><div class="timeline-dot"></div><span class="timeline-date">2025</span><h4>First CTF Competition</h4><p>Joined a CTF team and discovered the thrill of competitive hacking.</p></div></div>
+                        <div class="liquidGlass-wrapper timeline-item-glass"><div class="liquidGlass-effect"></div><div class="liquidGlass-tint"></div><div class="liquidGlass-shine"></div><div class="liquidGlass-text timeline-inner"><div class="timeline-dot"></div><span class="timeline-date">2025</span><h4>University - EEE</h4><p>Started studying Electrical & Electronic Engineering.</p></div></div>
+                        <div class="liquidGlass-wrapper timeline-item-glass"><div class="liquidGlass-effect"></div><div class="liquidGlass-tint"></div><div class="liquidGlass-shine"></div><div class="liquidGlass-text timeline-inner"><div class="timeline-dot"></div><span class="timeline-date">2024</span><h4>Started Coding</h4><p>Wrote my first Python script. The beginning of everything.</p></div></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== CONTACT ==================== -->
+        <section class="section" id="contact">
+            <div class="section-container">
+                <div class="section-header">
+                    <div class="liquidGlass-wrapper section-tag-glass"><div class="liquidGlass-effect"></div><div class="liquidGlass-tint"></div><div class="liquidGlass-shine"></div><span class="liquidGlass-text section-tag-text">Connect</span></div>
+                    <h2 class="section-title">Get In Touch</h2>
+                    <p class="section-desc">Have a project in mind? Want to collaborate? Drop me a message.</p>
+                </div>
+                <div class="contact-grid">
+                    <div class="liquidGlass-wrapper contact-form-glass"><div class="liquidGlass-effect"></div><div class="liquidGlass-tint"></div><div class="liquidGlass-shine"></div><div class="liquidGlass-text contact-form-inner">
+                        <form class="contact-form" id="contactForm" action="https://formsubmit.co/hereistajriyanrahman@gmail.com" method="POST">
+                            <input type="hidden" name="_captcha" value="false">
+                            <input type="hidden" name="_subject" value="New Portfolio Message!">
+                            <input type="hidden" name="_template" value="table">
+                            <div class="form-group"><label for="name">Name</label><input type="text" id="name" name="name" class="glass-input" placeholder="Bruce Wayne" required></div>
+                            <div class="form-group"><label for="email">Email</label><input type="email" id="email" name="email" class="glass-input" placeholder="brucewayne@gmail.com" required></div>
+                            <div class="form-group"><label for="subject">Subject</label><input type="text" id="subject" name="subject" class="glass-input" placeholder="Bug Bounty Collab"></div>
+                            <div class="form-group"><label for="message">Message</label><textarea id="message" name="message" class="glass-input" rows="5" placeholder="Your message..." required></textarea></div>
+                            <button type="submit" class="liquidGlass-wrapper submit-btn-glass"><div class="liquidGlass-effect"></div><div class="liquidGlass-tint"></div><div class="liquidGlass-shine"></div><span class="liquidGlass-text btn-content"><span>Send Message</span><i class="fas fa-paper-plane"></i></span></button>
+                        </form>
+                    </div></div>
+                    <div class="contact-info">
+                        <div class="liquidGlass-wrapper contact-card-glass"><div class="liquidGlass-effect"></div><div class="liquidGlass-tint"></div><div class="liquidGlass-shine"></div><div class="liquidGlass-text contact-card-inner"><div class="contact-icon"><i class="fas fa-envelope"></i></div><div><h4>Email</h4><a href="mailto:hereistajriyanrahman@gmail.com">hereistajriyanrahman@gmail.com</a></div></div></div>
+                        <div class="liquidGlass-wrapper contact-card-glass"><div class="liquidGlass-effect"></div><div class="liquidGlass-tint"></div><div class="liquidGlass-shine"></div><div class="liquidGlass-text contact-card-inner"><div class="contact-icon"><i class="fas fa-location-dot"></i></div><div><h4>Location</h4><p>Sylhet,Bangladesh</p></div></div></div>
+                        <div class="social-links">
+                            <a href="https://github.com/yourtoxic" class="liquidGlass-wrapper social-glass" aria-label="GitHub"><div class="liquidGlass-effect"></div><div class="liquidGlass-tint"></div><div class="liquidGlass-shine"></div><span class="liquidGlass-text"><i class="fab fa-github"></i></span></a>
+                            <a href="#" class="liquidGlass-wrapper social-glass" aria-label="LinkedIn"><div class="liquidGlass-effect"></div><div class="liquidGlass-tint"></div><div class="liquidGlass-shine"></div><span class="liquidGlass-text"><i class="fab fa-linkedin-in"></i></span></a>
+                            <a href="https://x.com/yourtoxic444" class="liquidGlass-wrapper social-glass" aria-label="Twitter"><div class="liquidGlass-effect"></div><div class="liquidGlass-tint"></div><div class="liquidGlass-shine"></div><span class="liquidGlass-text"><i class="fab fa-x-twitter"></i></span></a>
+                            <a href="https://discordapp.com/users/1413867319943364718" class="liquidGlass-wrapper social-glass" aria-label="Discord"><div class="liquidGlass-effect"></div><div class="liquidGlass-tint"></div><div class="liquidGlass-shine"></div><span class="liquidGlass-text"><i class="fab fa-discord"></i></span></a>
+                            <a href="t.me/not_tajriyanrahman" class="liquidGlass-wrapper social-glass" aria-label="Telegram"><div class="liquidGlass-effect"></div><div class="liquidGlass-tint"></div><div class="liquidGlass-shine"></div><span class="liquidGlass-text"><i class="fab fa-telegram-plane"></i></span></a>
+                        </div>
+                        <div class="liquidGlass-wrapper resume-glass"><div class="liquidGlass-effect"></div><div class="liquidGlass-tint"></div><div class="liquidGlass-shine"></div><div class="liquidGlass-text resume-inner"><i class="fas fa-file-pdf"></i><div><h4>Download Resume</h4><p>Get my latest CV</p></div><a href="#" class="download-btn"><i class="fas fa-download"></i></a></div></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="liquidGlass-wrapper glass-footer">
+        <div class="liquidGlass-effect"></div>
+        <div class="liquidGlass-tint"></div>
+        <div class="liquidGlass-shine"></div>
+        <div class="liquidGlass-text footer-inner">
+            <p>&copy; 2026 <span class="footer-name">tajriyanrahman</span>.All Rights Reserved</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
