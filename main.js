@@ -4,47 +4,38 @@
 // ============================================
 
 document.addEventListener('DOMContentLoaded', () => {
-    // ---- Navbar Scroll Effect ----
-    const navbar = document.getElementById('navbar');
-
-    window.addEventListener('scroll', () => {
-        if (window.pageYOffset > 50) {
-            navbar.classList.add('scrolled');
-        } else {
-            navbar.classList.remove('scrolled');
-        }
-    });
-
-    // ---- Hamburger Menu Toggle ----
-    const hamburger = document.getElementById('hamburger');
+    // ---- Navigation Toggle ----
+    const navToggle = document.getElementById('navToggle');
     const mobileMenu = document.getElementById('mobileMenu');
     const mobileLinks = document.querySelectorAll('.mobile-link');
+    const navLinks = document.querySelectorAll('.nav-link');
+    const sections = document.querySelectorAll('section[id]');
 
-    if (hamburger && mobileMenu) {
-        hamburger.addEventListener('click', () => {
-            hamburger.classList.toggle('active');
+    // Toggle mobile menu
+    if (navToggle && mobileMenu) {
+        navToggle.addEventListener('click', () => {
+            navToggle.classList.toggle('active');
             mobileMenu.classList.toggle('active');
         });
 
+        // Close menu when clicking a link
         mobileLinks.forEach(link => {
             link.addEventListener('click', () => {
-                hamburger.classList.remove('active');
+                navToggle.classList.remove('active');
                 mobileMenu.classList.remove('active');
             });
         });
 
-        document.addEventListener('click', (e) => {
-            if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) {
-                hamburger.classList.remove('active');
+        // Close menu when clicking outside
+        mobileMenu.addEventListener('click', (e) => {
+            if (e.target === mobileMenu) {
+                navToggle.classList.remove('active');
                 mobileMenu.classList.remove('active');
             }
         });
     }
 
     // ---- Active Nav Link on Scroll ----
-    const sections = document.querySelectorAll('section[id]');
-    const navLinks = document.querySelectorAll('.nav-link');
-
     function updateActiveLink() {
         const scrollPos = window.scrollY + 150;
 
