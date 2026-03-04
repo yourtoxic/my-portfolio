@@ -1097,6 +1097,12 @@ img {
     background: var(--bg-secondary);
 }
 
+.about-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
 .matrix-rain {
     position: absolute;
     top: 0;
@@ -1552,49 +1558,6 @@ img {
     line-height: 1.6;
 }
 
-/* ---- CTF Section ---- */
-.ctf-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-}
-
-.ctf-card {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    padding: 24px;
-    cursor: default;
-}
-
-.ctf-icon {
-    font-size: 2.5rem;
-    min-width: 50px;
-    text-align: center;
-}
-
-.ctf-info h3 {
-    font-size: 1rem;
-    font-weight: 700;
-    margin-bottom: 4px;
-}
-
-.ctf-info p {
-    color: var(--text-secondary);
-    font-size: 0.9rem;
-    margin-bottom: 6px;
-}
-
-.ctf-category {
-    font-size: 0.75rem;
-    font-family: var(--font-mono);
-    color: var(--text-secondary);
-    background: rgba(255, 255, 255, 0.5);
-    padding: 3px 10px;
-    border-radius: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.7);
-}
-
 /* ---- Achievements Section ---- */
 .achievements-grid {
     display: grid;
@@ -1713,19 +1676,34 @@ img {
     display: flex;
     flex-direction: column;
     gap: 24px;
+    position: relative;
+    overflow: hidden;
+}
+
+.contact-form::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(0, 0, 0, 0.03) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
 }
 
 .form-group {
     position: relative;
+    z-index: 1;
 }
 
 .form-group input,
 .form-group textarea {
     width: 100%;
-    padding: 14px 16px;
-    border: 1px solid rgba(255, 255, 255, 0.7);
+    padding: 16px 45px 16px 16px;
+    border: 2px solid rgba(255, 255, 255, 0.6);
     border-radius: var(--border-radius-sm);
-    background: rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.6);
     color: var(--text-primary);
     font-family: var(--font-primary);
     font-size: 0.95rem;
@@ -1736,12 +1714,12 @@ img {
 
 .form-group textarea {
     resize: vertical;
-    min-height: 120px;
+    min-height: 140px;
 }
 
 .form-group label {
     position: absolute;
-    top: 14px;
+    top: 16px;
     left: 16px;
     color: var(--text-tertiary);
     font-size: 0.95rem;
@@ -1749,30 +1727,54 @@ img {
     transition: all var(--transition-fast);
 }
 
+.form-group .form-icon {
+    position: absolute;
+    top: 50%;
+    right: 16px;
+    transform: translateY(-50%);
+    color: var(--text-secondary);
+    font-size: 1rem;
+    transition: all var(--transition-fast);
+    pointer-events: none;
+}
+
+.form-group textarea ~ .form-icon {
+    top: 20px;
+    transform: none;
+}
+
 .form-group input:focus,
 .form-group textarea:focus {
-    border-color: rgba(0, 0, 0, 0.3);
-    background: rgba(255, 255, 255, 0.7);
-    box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.05);
+    border-color: rgba(0, 0, 0, 0.4);
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 0 0 5px rgba(0, 0, 0, 0.06);
 }
 
 .form-group input:focus + label,
 .form-group input:not(:placeholder-shown) + label,
 .form-group textarea:focus + label,
 .form-group textarea:not(:placeholder-shown) + label {
-    top: -10px;
-    left: 12px;
+    top: -12px;
+    left: 14px;
     font-size: 0.75rem;
+    font-weight: 600;
     color: var(--text-primary);
     background: var(--bg-primary);
-    padding: 2px 6px;
-    border-radius: 4px;
+    padding: 3px 8px;
+    border-radius: 6px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.form-group input:focus ~ .form-icon,
+.form-group textarea:focus ~ .form-icon {
+    color: var(--text-primary);
 }
 
 .btn-submit {
-    align-self: flex-start;
-    min-width: 180px;
+    align-self: center;
+    min-width: 160px;
     justify-content: center;
+    padding: 12px 24px;
 }
 
 /* ---- Footer ---- */
@@ -1786,7 +1788,7 @@ img {
 }
 
 .footer-content {
-    padding: 40px 0;
+    padding: 12px 0;
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -1894,12 +1896,19 @@ img {
         grid-template-columns: repeat(2, 1fr);
     }
 
-    .ctf-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
     .contact-grid {
         grid-template-columns: 1fr;
+    }
+
+    .contact-info {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .contact-card {
+        justify-content: center;
     }
 
     .profile-container {
@@ -1963,10 +1972,6 @@ img {
     }
 
     .projects-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .ctf-grid {
         grid-template-columns: 1fr;
     }
 
@@ -2093,6 +2098,57 @@ img {
     border-radius: 8px;
 }
 
+/* ---- Scroll to Top Button ---- */
+.scroll-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    color: var(--text-dark);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    z-index: 999;
+}
+
+.scroll-to-top.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.scroll-to-top:hover {
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2);
+    transform: translateY(-5px);
+}
+
+.scroll-to-top:active {
+    transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+    .scroll-to-top {
+        bottom: 20px;
+        right: 20px;
+        width: 45px;
+        height: 45px;
+        font-size: 1rem;
+    }
+}
+
 ::-webkit-scrollbar-thumb:hover {
     background: rgba(0, 0, 0, 0.35);
 }
@@ -2101,4 +2157,16 @@ img {
 ::selection {
     background: rgba(0, 0, 0, 0.15);
     color: var(--text-primary);
+}
+
+/* ---- TryHackMe Icon ---- */
+.thm-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.thm-icon .material-symbols-outlined {
+    font-size: 1.4rem;
+    color: #000;
 }
