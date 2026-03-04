@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="style.css?v=18">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=domino_mask" />
 </head>
 <body>
     <!-- Animated Background Blobs -->
@@ -39,6 +40,7 @@
                 <a href="#skills" class="nav-link" data-section="skills">Skills</a>
                 <a href="#projects" class="nav-link" data-section="projects">Projects</a>
                 <a href="#achievements" class="nav-link" data-section="achievements">Achievements</a>
+                <a href="#socials" class="nav-link" data-section="socials">Socials</a>
                 <a href="#contact" class="nav-link" data-section="contact">Contact</a>
             </div>
             <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
@@ -59,6 +61,7 @@
                 <a href="#skills" class="mobile-link">Skills</a>
                 <a href="#projects" class="mobile-link">Projects</a>
                 <a href="#achievements" class="mobile-link">Achievements</a>
+                <a href="#socials" class="mobile-link">Socials</a>
                 <a href="#contact" class="mobile-link">Contact</a>
             </div>
         </div>
@@ -140,7 +143,6 @@
     <section class="section about-section" id="about">
         <div class="container">
             <div class="section-header">
-                <span class="section-tag">&lt;about&gt;</span>
                 <h2 class="section-title">About <span class="highlight">Me</span></h2>
                 <div class="section-line"></div>
             </div>
@@ -148,10 +150,7 @@
                 <div class="about-image-col">
                     <div class="about-image-wrapper glass-card-deep">
                         <div class="about-img-placeholder">
-                            <div class="matrix-rain" id="matrixRain"></div>
-                            <div class="about-avatar">
-                                <i class="fas fa-user-astronaut"></i>
-                            </div>
+                            <img src="logo_1.jpg" alt="Tajriyan Rahman" class="about-image">
                         </div>
                         <div class="about-status glass-badge-sm">
                             <span class="status-dot"></span>
@@ -172,9 +171,9 @@
                             and digital forensics.
                         </p>
                         <p class="about-text">
-                            When I'm not hunting bugs on platforms or competing in CTF challenges, 
-                            you'll find me writing security tools, exploring new attack vectors, 
-                            and contributing to the cybersecurity community. I believe in the power 
+                            When I'm not hunting bugs on platforms or competing in CTF challenges,
+                            you'll find me writing security tools, exploring new attack vectors,
+                            and contributing to the cybersecurity community. I believe in the power
                             of <strong>breaking things to make them stronger</strong>.
                         </p>
                         <div class="about-stats">
@@ -202,7 +201,6 @@
                     </div>
                 </div>
             </div>
-            <span class="section-tag section-tag-close">&lt;/about&gt;</span>
         </div>
     </section>
 
@@ -210,7 +208,6 @@
     <section class="section skills-section" id="skills">
         <div class="container">
             <div class="section-header">
-                <span class="section-tag">&lt;skills&gt;</span>
                 <h2 class="section-title">My <span class="highlight">Arsenal</span></h2>
                 <div class="section-line"></div>
             </div>
@@ -357,7 +354,6 @@
                     </div>
                 </div>
             </div>
-            <span class="section-tag section-tag-close">&lt;/skills&gt;</span>
         </div>
     </section>
 
@@ -365,7 +361,6 @@
     <section class="section projects-section" id="projects">
         <div class="container">
             <div class="section-header">
-                <span class="section-tag">&lt;projects&gt;</span>
                 <h2 class="section-title">Featured <span class="highlight">Projects</span></h2>
                 <div class="section-line"></div>
             </div>
@@ -490,69 +485,6 @@
                     </div>
                 </div>
             </div>
-            <span class="section-tag section-tag-close">&lt;/projects&gt;</span>
-        </div>
-    </section>
-
-    <!-- CTF Section -->
-    <section class="section ctf-section" id="ctf">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-tag">&lt;ctf&gt;</span>
-                <h2 class="section-title">CTF <span class="highlight">Achievements</span></h2>
-                <div class="section-line"></div>
-            </div>
-            <div class="ctf-grid">
-                <div class="ctf-card glass-card">
-                    <div class="ctf-icon">🏆</div>
-                    <div class="ctf-info">
-                        <h3>National Cyber CTF 2024</h3>
-                        <p>Top 10 Finalist</p>
-                        <span class="ctf-category">Jeopardy Style</span>
-                    </div>
-                </div>
-                <div class="ctf-card glass-card">
-                    <div class="ctf-icon">🥇</div>
-                    <div class="ctf-info">
-                        <h3>HackTheBox Challenges</h3>
-                        <p>Pro Hacker Rank</p>
-                        <span class="ctf-category">Penetration Testing</span>
-                    </div>
-                </div>
-                <div class="ctf-card glass-card">
-                    <div class="ctf-icon">🎯</div>
-                    <div class="ctf-info">
-                        <h3>TryHackMe</h3>
-                        <p>Top 5% Global</p>
-                        <span class="ctf-category">Learning Path</span>
-                    </div>
-                </div>
-                <div class="ctf-card glass-card">
-                    <div class="ctf-icon">🚩</div>
-                    <div class="ctf-info">
-                        <h3>PicoCTF 2024</h3>
-                        <p>200+ Points</p>
-                        <span class="ctf-category">Multi-category</span>
-                    </div>
-                </div>
-                <div class="ctf-card glass-card">
-                    <div class="ctf-icon">💀</div>
-                    <div class="ctf-info">
-                        <h3>OverTheWire</h3>
-                        <p>Completed Bandit & Natas</p>
-                        <span class="ctf-category">War Games</span>
-                    </div>
-                </div>
-                <div class="ctf-card glass-card">
-                    <div class="ctf-icon">🔐</div>
-                    <div class="ctf-info">
-                        <h3>CryptoHack</h3>
-                        <p>Advanced Level</p>
-                        <span class="ctf-category">Cryptography</span>
-                    </div>
-                </div>
-            </div>
-            <span class="section-tag section-tag-close">&lt;/ctf&gt;</span>
         </div>
     </section>
 
@@ -560,7 +492,6 @@
     <section class="section achievements-section" id="achievements">
         <div class="container">
             <div class="section-header">
-                <span class="section-tag">&lt;achievements&gt;</span>
                 <h2 class="section-title">My <span class="highlight">Achievements</span></h2>
                 <div class="section-line"></div>
                 <p class="section-subtitle">Certifications, awards, and recognitions</p>
@@ -615,7 +546,6 @@
                     </ul>
                 </div>
             </div>
-            <span class="section-tag section-tag-close">&lt;/achievements&gt;</span>
         </div>
     </section>
 
@@ -623,7 +553,6 @@
     <section class="section contact-section" id="contact">
         <div class="container">
             <div class="section-header">
-                <span class="section-tag">&lt;contact&gt;</span>
                 <h2 class="section-title">Get In <span class="highlight">Touch</span></h2>
                 <div class="section-line"></div>
                 <p class="section-subtitle">Have a project in mind or want to collaborate? Let's talk!</p>
@@ -636,7 +565,7 @@
                         </div>
                         <div>
                             <h4>Email</h4>
-                            <p>tajriyan@email.com</p>
+                            <p>hereistajriyanrahman@gmail.com</p>
                         </div>
                     </div>
                     <div class="contact-card glass-card">
@@ -645,6 +574,7 @@
                         </div>
                         <div>
                             <h4>Location</h4>
+                            <p>Sylhet</p>
                             <p>Bangladesh</p>
                         </div>
                     </div>
@@ -658,26 +588,36 @@
                         </div>
                     </div>
                 </div>
-                <form class="contact-form glass-card" id="contactForm">
+                <form class="contact-form glass-card" id="contactForm" action="https://formsubmit.co/hereistajriyanrahman@gmail.com" method="POST">
+                    <!-- FormSubmit Configuration -->
+                    <input type="hidden" name="_subject" value="New Message from Portfolio">
+                    <input type="hidden" name="_captcha" value="false">
+                    <input type="hidden" name="_template" value="table">
+                    <input type="text" name="_honey" style="display:none">
+                    
                     <div class="form-group">
-                        <input type="text" id="name" placeholder=" " required>
+                        <input type="text" id="name" name="name" placeholder=" " required>
                         <label for="name">Your Name</label>
                         <span class="form-line"></span>
+                        <i class="form-icon fas fa-user"></i>
                     </div>
                     <div class="form-group">
-                        <input type="email" id="email" placeholder=" " required>
+                        <input type="email" id="email" name="email" placeholder=" " required>
                         <label for="email">Your Email</label>
                         <span class="form-line"></span>
+                        <i class="form-icon fas fa-envelope"></i>
                     </div>
                     <div class="form-group">
-                        <input type="text" id="subject" placeholder=" " required>
+                        <input type="text" id="subject" name="subject" placeholder=" " required>
                         <label for="subject">Subject</label>
                         <span class="form-line"></span>
+                        <i class="form-icon fas fa-tag"></i>
                     </div>
                     <div class="form-group">
-                        <textarea id="message" rows="5" placeholder=" " required></textarea>
+                        <textarea id="message" name="message" rows="5" placeholder=" " required></textarea>
                         <label for="message">Your Message</label>
                         <span class="form-line"></span>
+                        <i class="form-icon fas fa-comment"></i>
                     </div>
                     <button type="submit" class="btn btn-primary glass-btn-primary btn-submit">
                         <i class="fas fa-paper-plane"></i>
@@ -686,30 +626,31 @@
                     </button>
                 </form>
             </div>
-            <span class="section-tag section-tag-close">&lt;/contact&gt;</span>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="footer glass-footer">
+    <footer class="footer glass-footer" id="socials">
         <div class="container">
             <div class="footer-content">
-                <div class="footer-logo">
-                    <span class="logo-bracket">&lt;</span>
-                    <span class="logo-text">Tajriyan Rahman</span>
-                    <span class="logo-bracket">/&gt;</span>
-                </div>
                 <p class="footer-text">Securing the digital world, one vulnerability at a time.</p>
                 <div class="footer-socials">
                     <a href="#" class="glass-icon"><i class="fab fa-github"></i></a>
                     <a href="#" class="glass-icon"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="#" class="glass-icon"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="glass-icon"><i class="fab fa-facebook"></i></a>
+                    <a href="#" class="glass-icon"><i class="fab fa-x-twitter"></i></a>
                     <a href="#" class="glass-icon"><i class="fab fa-discord"></i></a>
+                    <a href="#" class="glass-icon thm-icon"><span class="material-symbols-outlined">domino_mask</span></a>
                 </div>
-                <p class="footer-copy">&copy; 2025 Tajriyan Rahman. All rights reserved.</p>
+                <p class="footer-copy">&copy; 2026 Tajriyan Rahman. All rights reserved.</p>
             </div>
         </div>
     </footer>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-to-top" id="scrollToTop" aria-label="Scroll to top">
+        <i class="fas fa-chevron-up"></i>
+    </button>
 
     <script src="main.js"></script>
 </body>
