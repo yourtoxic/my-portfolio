@@ -1925,12 +1925,37 @@ img {
         display: flex;
     }
 
+    .nav-container {
+        justify-content: center;
+    }
+
     .hero {
         padding: 100px 20px 60px;
     }
 
+    .hero-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .hero-text {
+        width: 100%;
+    }
+
     .hero-name {
         font-size: 2.2rem;
+    }
+
+    .hero-terminal {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .terminal-small {
+        min-width: auto;
+        width: 100%;
+        max-width: 400px;
     }
 
     .skills-grid {
@@ -1969,8 +1994,23 @@ img {
 }
 
 @media (max-width: 480px) {
+    .nav-container {
+        justify-content: center;
+    }
+
     .hero-name {
         font-size: 1.8rem;
+    }
+
+    .hero-terminal {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .terminal-small {
+        min-width: auto;
+        width: 90%;
     }
 
     .hero-buttons {
