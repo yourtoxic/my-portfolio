@@ -120,7 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ---- Scroll Reveal ----
     function setupScrollReveal() {
         const revealElements = document.querySelectorAll(
-            '.skill-card, .project-card, .ctf-card, .contact-card, .contact-form, .about-card, .about-image-wrapper'
+            '.skill-card, .project-card, .contact-card, .contact-form, .about-card, .about-image-wrapper'
         );
 
         revealElements.forEach(el => {
@@ -251,49 +251,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     initParticles();
 
-    // ---- Matrix Rain Effect ----
-    function initMatrixRain() {
-        const container = document.getElementById('matrixRain');
-        if (!container) return;
-
-        const chars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
-        const columns = Math.floor(container.offsetWidth / 16);
-
-        for (let i = 0; i < columns; i++) {
-            const column = document.createElement('div');
-            column.style.cssText = `
-                position: absolute;
-                left: ${i * 16}px;
-                top: ${Math.random() * -100}%;
-                font-family: 'JetBrains Mono', monospace;
-                font-size: 12px;
-                line-height: 1.4;
-                color: #00ff00;
-                writing-mode: vertical-rl;
-                animation: matrixFall ${3 + Math.random() * 5}s linear infinite;
-                animation-delay: ${Math.random() * 3}s;
-            `;
-
-            let text = '';
-            for (let j = 0; j < 20; j++) {
-                text += chars.charAt(Math.floor(Math.random() * chars.length));
-            }
-            column.textContent = text;
-            container.appendChild(column);
-        }
-
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes matrixFall {
-                0% { transform: translateY(-100%); }
-                100% { transform: translateY(500px); }
-            }
-        `;
-        document.head.appendChild(style);
-    }
-
-    initMatrixRain();
-
     // ---- Tilt Effect for Cards ----
     function initTiltEffect() {
         const cards = document.querySelectorAll('[data-tilt]');
@@ -321,21 +278,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ---- Contact Form Handler ----
     const contactForm = document.getElementById('contactForm');
-    
+
     contactForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        
         const btn = contactForm.querySelector('.btn-submit');
         const originalContent = btn.innerHTML;
-        
+
         btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> <span>Sending...</span>';
         btn.disabled = true;
 
         setTimeout(() => {
             btn.innerHTML = '<i class="fas fa-check"></i> <span>Message Sent!</span>';
             btn.style.background = 'linear-gradient(135deg, #00ff88, #00d4ff)';
-            
-            contactForm.reset();
 
             setTimeout(() => {
                 btn.innerHTML = originalContent;
@@ -361,7 +314,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ---- Staggered Reveal for Grid Items ----
     function staggerReveal() {
-        const grids = document.querySelectorAll('.skills-grid, .projects-grid, .ctf-grid');
+        const grids = document.querySelectorAll('.skills-grid, .projects-grid');
         
         grids.forEach(grid => {
             const items = grid.querySelectorAll('.reveal');
@@ -399,4 +352,24 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('load', () => {
         document.body.style.opacity = '1';
     });
+
+    // ---- Scroll to Top Button ----
+    const scrollToTopBtn = document.getElementById('scrollToTop');
+
+    function handleScrollToTop() {
+        if (window.scrollY > 500) {
+            scrollToTopBtn.classList.add('active');
+        } else {
+            scrollToTopBtn.classList.remove('active');
+        }
+    }
+
+    scrollToTopBtn.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+
+    window.addEventListener('scroll', handleScrollToTop);
 });
